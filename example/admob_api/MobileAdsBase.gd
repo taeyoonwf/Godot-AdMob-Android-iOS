@@ -95,12 +95,10 @@ func _on_AdMob_interstitial_left_application():
 
 func _on_AdMob_interstitial_opened():
 	emit_signal("interstitial_opened")
-	get_tree().paused = true
 
 func _on_AdMob_interstitial_closed():
 	interstitial_loaded = false	
 	emit_signal("interstitial_closed")
-	get_tree().paused = false
 
 
 func _on_AdMob_rewarded_ad_loaded():
@@ -109,12 +107,10 @@ func _on_AdMob_rewarded_ad_loaded():
 
 func _on_AdMob_rewarded_ad_opened():
 	emit_signal("rewarded_ad_opened")
-	get_tree().paused = true
 
 func _on_AdMob_rewarded_ad_closed():
 	rewarded_loaded = false
 	emit_signal("rewarded_ad_closed")
-	get_tree().paused = false
 
 func _on_AdMob_rewarded_ad_failed_to_load():
 	emit_signal("rewarded_ad_failed_to_load")
