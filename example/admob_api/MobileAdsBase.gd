@@ -24,11 +24,11 @@ signal rewarded_ad_closed()
 signal rewarded_user_earned_rewarded(currency, amount)
 signal rewarded_ad_failed_to_show(error_code)
 
-signal unified_native_loaded()
-signal unified_native_destroyed()
-signal unified_native_failed_to_load(error_code)
-signal unified_native_opened()
-signal unified_native_closed()
+signal native_loaded()
+signal native_destroyed()
+signal native_failed_to_load(error_code)
+signal native_opened()
+signal native_closed()
 
 signal consent_form_dismissed()
 signal consent_status_changed(consent_status_message)
@@ -41,7 +41,7 @@ signal initialization_complete(status, adapter_name)
 #public attributes
 var is_initialized : bool = false 
 var banner_enabled : bool = false
-var unified_native_enabled : bool = false
+var native_enabled : bool = false
 var interstitial_loaded : bool = false
 var rewarded_loaded : bool = false
 
@@ -50,7 +50,7 @@ var _admob_singleton : Object
 var _control_node_to_be_replaced : Control
 enum _position_options {BOTTOM, TOP}
 
-onready var _unified_native_scale : Dictionary = {
+onready var _native_scale : Dictionary = {
 	"x" : OS.get_screen_size().x / get_viewport_rect().size.x,
 	"y" : OS.get_screen_size().y / get_viewport_rect().size.y,
 }
@@ -122,22 +122,22 @@ func _on_AdMob_rewarded_ad_failed_to_show(error_code : int):
 	emit_signal("rewarded_ad_failed_to_show", error_code)
 
 
-func _on_AdMob_unified_native_loaded():
-	unified_native_enabled = true
-	emit_signal("unified_native_loaded")
+func _on_AdMob_native_loaded():
+	native_enabled = true
+	emit_signal("native_loaded")
 
-func _on_AdMob_unified_native_destroyed():
-	emit_signal("unified_native_destroyed")
+func _on_AdMob_native_destroyed():
+	emit_signal("native_destroyed")
 
-func _on_AdMob_unified_native_failed_to_load(error_code : int):
-	emit_signal("unified_native_failed_to_load", error_code)
+func _on_AdMob_native_failed_to_load(error_code : int):
+	emit_signal("native_failed_to_load", error_code)
 
-func _on_AdMob_unified_native_opened():
-	emit_signal("unified_native_opened")
+func _on_AdMob_native_opened():
+	emit_signal("native_opened")
 	
-func _on_AdMob_unified_native_closed():
-	unified_native_enabled = false
-	emit_signal("unified_native_closed")
+func _on_AdMob_native_closed():
+	native_enabled = false
+	emit_signal("native_closed")
 
 
 func _on_AdMob_consent_form_dismissed():
