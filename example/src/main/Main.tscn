@@ -28,6 +28,7 @@ margin_top = -256.0
 margin_right = 256.0
 margin_bottom = 256.0
 texture = ExtResource( 1 )
+stretch_mode = 6
 __meta__ = {
 "_edit_lock_": true
 }
@@ -69,6 +70,8 @@ alignment = 1
 [node name="Banner" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 margin_right = 770.0
 margin_bottom = 45.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 alignment = 1
 
 [node name="EnableBanner" type="Button" parent="CenterContainer/VBoxContainer/Banner"]
@@ -154,6 +157,7 @@ __meta__ = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Banner/EnableBanner" to="." method="_on_EnableBanner_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Banner/DisableBanner" to="." method="_on_DisableBanner_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Interstitial" to="." method="_on_Interstitial_pressed"]

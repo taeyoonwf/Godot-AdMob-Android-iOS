@@ -23,6 +23,8 @@ func _ready():
 		# warning-ignore:return_value_discarded
 		MobileAds.connect("consent_info_update_failure", self, "_on_AdMob_consent_info_update_failure")
 		# warning-ignore:return_value_discarded
+		MobileAds.connect("consent_status_changed", self, "_on_AdMob_consent_status_changed")
+		# warning-ignore:return_value_discarded
 		MobileAds.connect("banner_loaded", self, "_on_AdMob_banner_loaded")
 		# warning-ignore:return_value_discarded
 		MobileAds.connect("banner_destroyed", self, "_on_AdMob_banner_destroyed")
@@ -40,9 +42,9 @@ func _ready():
 		MobileAds.connect("initialization_complete", self, "_on_AdMob_initialization_complete")
 		if OS.get_name() == "Android":
 			# warning-ignore:return_value_discarded
-			MobileAds.connect("unified_native_loaded", self, "_on_AdMob_unified_native_loaded")
+			MobileAds.connect("native_loaded", self, "_on_AdMob_native_loaded")
 			# warning-ignore:return_value_discarded
-			MobileAds.connect("unified_native_destroyed", self, "_on_AdMob_unified_native_destroyed")
+			MobileAds.connect("native_destroyed", self, "_on_AdMob_native_destroyed")
 		else:
 			UnifiedNativePanel.hide()
 			UnifiedNativeHBox.hide()
@@ -75,18 +77,18 @@ func _on_Interstitial_pressed():
 	MobileAds.show_interstitial()
 	Interstitial.disabled = true
 	
-func reset_banner_and_unified_buttons():
+func reset_banner_and_native_buttons():
 	DisableBanner.disabled = true
 	DisableNative.disabled = true
 	EnableBanner.disabled = false
 	EnableNative.disabled = false
 
 func _on_AdMob_banner_destroyed():
-	reset_banner_and_unified_buttons()
+	reset_banner_and_native_buttons()
 	_add_text_Advice_Node("Banner destroyed")
 
-func _on_AdMob_unified_native_destroyed():
-	reset_banner_and_unified_buttons()
+func _on_AdMob_native_destroyed():
+	reset_banner_and_native_buttons()
 	_add_text_Advice_Node("Unified Natived destroyed")
 
 func _on_AdMob_banner_loaded():
@@ -122,8 +124,14 @@ func _on_AdMob_rewarded_ad_closed():
 func _on_AdMob_rewarded_user_earned_rewarded(currency : String, amount : int):
 	Advice.bbcode_text += "EARNED " + currency + " with amount: " + str(amount) + "\n"
 
+func _on_AdMob_consent_info_update_failure(_error_code : int, error_message : String):
+	_add_text_Advice_Node(error_message)
 
-func _on_AdMob_unified_native_loaded():
+func _on_AdMob_consent_status_changed(status_message : String):
+	_add_text_Advice_Node(status_message)
+
+
+func _on_AdMob_native_loaded():
 	DisableNative.disabled = false
 	DisableBanner.disabled = true
 	EnableBanner.disabled = true
@@ -133,13 +141,13 @@ func _on_AdMob_unified_native_loaded():
 func _on_EnableUnifiedNative_pressed():
 	EnableNative.disabled = true
 	EnableBanner.disabled = true
-	MobileAds.load_unified_native($UnifiedNative)
+	MobileAds.load_native($UnifiedNative)
 
 func _on_DisableUnifiedNative_pressed():
 	DisableNative.disabled = true
 	EnableNative.disabled = false
 	EnableBanner.disabled = false
-	MobileAds.destroy_unified_native()
+	MobileAds.destroy_native()
 
 
 func _on_BannerSizes_item_selected(index):
