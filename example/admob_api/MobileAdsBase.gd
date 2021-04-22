@@ -7,8 +7,8 @@ signal banner_destroyed()
 signal banner_failed_to_load(error_code)
 signal banner_opened()
 signal banner_clicked()
-signal banner_left_application()
 signal banner_closed()
+signal banner_recorded_impression()
 
 signal interstitial_loaded()
 signal interstitial_failed_to_load(error_code)
@@ -28,7 +28,9 @@ signal native_loaded()
 signal native_destroyed()
 signal native_failed_to_load(error_code)
 signal native_opened()
+signal native_clicked()
 signal native_closed()
+signal native_recorded_impression()
 
 signal consent_form_dismissed()
 signal consent_status_changed(consent_status_message)
@@ -73,12 +75,12 @@ func _on_AdMob_banner_opened():
 func _on_AdMob_banner_clicked():
 	emit_signal("banner_clicked")
 	
-func _on_AdMob_banner_left_application():
-	emit_signal("banner_left_application")
-	
 func _on_AdMob_banner_closed():
 	emit_signal("banner_closed")
-	
+
+func _on_AdMob_banner_recorded_impression():
+	emit_signal("banner_recorded_impression")
+
 
 func _on_AdMob_interstitial_loaded():
 	interstitial_loaded = true
@@ -127,6 +129,7 @@ func _on_AdMob_native_loaded():
 	emit_signal("native_loaded")
 
 func _on_AdMob_native_destroyed():
+	native_enabled = false
 	emit_signal("native_destroyed")
 
 func _on_AdMob_native_failed_to_load(error_code : int):
@@ -135,9 +138,14 @@ func _on_AdMob_native_failed_to_load(error_code : int):
 func _on_AdMob_native_opened():
 	emit_signal("native_opened")
 	
+func _on_AdMob_native_clicked():
+	emit_signal("native_clicked")
+	
 func _on_AdMob_native_closed():
-	native_enabled = false
 	emit_signal("native_closed")
+		
+func _on_AdMob_native_recorded_impression():
+	emit_signal("native_recorded_impression")
 
 
 func _on_AdMob_consent_form_dismissed():
