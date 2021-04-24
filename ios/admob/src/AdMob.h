@@ -38,6 +38,8 @@
     public:
         void initialize(bool is_for_child_directed_treatment, const String &max_ad_content_rating, bool is_real, bool is_test_europe_user_consent, int instance_id);
         void load_banner(const String &ad_unit_id, int gravity, const String &size);
+        void hide_banner();
+        void show_banner();
         void destroy_banner();
         void load_interstitial(const String &ad_unit_id);
         void show_interstitial();

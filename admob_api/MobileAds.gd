@@ -42,6 +42,14 @@ func load_banner():
 	if _admob_singleton and is_initialized:
 		_admob_singleton.load_banner(unit_ids.banner[OS.get_name()], banner_position, banner_size)
 
+func hide_banner():
+	if _admob_singleton and is_initialized:
+		_admob_singleton.hide_banner()
+
+func show_banner():
+	if _admob_singleton and is_initialized:
+		_admob_singleton.show_banner()
+
 func load_interstitial():
 	if _admob_singleton and is_initialized:
 		_admob_singleton.load_interstitial(unit_ids.interstitial[OS.get_name()])

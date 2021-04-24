@@ -15,6 +15,17 @@
     return self;
 }
 
+- (void) hide_banner {
+    if (bannerView == nil)
+        return;
+    [bannerView setAlpha:0];
+}
+
+- (void) show_banner {
+    if (bannerView == nil)
+        return;
+    [bannerView setAlpha:1];
+}
 
 - (void) load_banner:(NSString*)ad_unit_id :(int)position :(NSString*)size {
     NSLog(@"Calling load_banner");

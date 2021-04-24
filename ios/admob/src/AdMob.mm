@@ -182,6 +182,18 @@ void AdMob::initializeAfterUMP(bool is_for_child_directed_treatment, bool is_rea
     }
 }
 
+void AdMob::hide_banner() {
+		if (bannerObj == NULL)
+				return;
+		[bannerObj hide_banner];
+}
+
+void AdMob::show_banner() {
+		if (bannerObj == NULL)
+				return;
+		[bannerObj show_banner];
+}
+
 void AdMob::load_banner(const String &ad_unit_id, int position, const String &size) {
     if (!initialized) {
         NSLog(@"AdMob Module not initialized");
@@ -237,6 +249,8 @@ void AdMob::show_rewarded() {
 void AdMob::_bind_methods() {
     ClassDB::bind_method("initialize", &AdMob::initialize);
     ClassDB::bind_method("load_banner", &AdMob::load_banner);
+    ClassDB::bind_method("hide_banner", &AdMob::hide_banner);
+    ClassDB::bind_method("show_banner", &AdMob::show_banner);
     ClassDB::bind_method("destroy_banner", &AdMob::destroy_banner);
     ClassDB::bind_method("load_interstitial", &AdMob::load_interstitial);
     ClassDB::bind_method("show_interstitial", &AdMob::show_interstitial);
