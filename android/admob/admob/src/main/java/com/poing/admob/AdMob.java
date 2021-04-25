@@ -84,6 +84,8 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin
         return Arrays.asList(
                 "initialize",
                 "load_banner",
+                "hide_banner",
+                "show_banner",
                 "destroy_banner",
                 "load_interstitial",
                 "show_interstitial",
@@ -369,6 +371,39 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin
             }
         });
     }
+    public void hide_banner()
+    {
+        aActivity.runOnUiThread(new Runnable()
+        {
+            @Override public void run()
+            {
+                if (aIsInitialized) {
+                    if (aAdView != null) {
+                        if (aAdView.getVisibility() == View.GONE) return;
+                        aAdView.setVisibility(View.GONE);
+                        aAdView.pause();
+                    }
+                }
+            }
+        });
+    }
+    public void show_banner()
+    {
+        aActivity.runOnUiThread(new Runnable()
+        {
+            @Override public void run()
+            {
+                if (aIsInitialized) {
+                    if (aAdView != null) {
+                        if (aAdView.getVisibility() == View.VISIBLE) return;
+                        aAdView.setVisibility(View.VISIBLE);
+                        aAdView.resume();
+                    }
+                }
+            }
+        });
+    }
+
     //BANNER
     //INTERSTITIAL
     public void load_interstitial(final String pAdUnitId)
