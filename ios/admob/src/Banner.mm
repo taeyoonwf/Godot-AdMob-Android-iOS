@@ -138,7 +138,7 @@
 
 - (void)adViewDidReceiveAd:(GADBannerView *)adView {
     NSLog(@"adViewDidReceiveAd");
-    [rootController.view endEditing:YES];
+    // [rootController.view endEditing:YES];
     [self addBannerViewToView];
     Object *obj = ObjectDB::get_instance(instanceId);
     obj->call_deferred("_on_AdMob_banner_loaded");
