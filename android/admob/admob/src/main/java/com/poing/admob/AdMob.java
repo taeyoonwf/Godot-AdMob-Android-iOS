@@ -161,7 +161,6 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
             }); //initializes the admob
         }
     }
-        aIsReal = pIsReal;
 
     private void loadConsentForm() {
         UserMessagingPlatform.loadConsentForm(
