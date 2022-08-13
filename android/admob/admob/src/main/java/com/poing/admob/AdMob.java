@@ -147,17 +147,20 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
             aIsTestEuropeUserConsent = pIsTestEuropeUserConsent;
 
             setMobileAdsRequestConfiguration(aIsForChildDirectedTreatment, pMaxAdContentRating, pIsReal); //First call MobileAds.setRequestConfiguration https://groups.google.com/g/google-admob-ads-sdk/c/17oVu0sABjs
-            MobileAds.initialize(aActivity, initializationStatus -> {
-                int statusGADMobileAds = Objects.requireNonNull(initializationStatus.getAdapterStatusMap().get("com.google.android.gms.ads.MobileAds")).getInitializationState().ordinal();
+            MobileAds.initialize(aActivity, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
+                    int statusGADMobileAds = Objects.requireNonNull(initializationStatus.getAdapterStatusMap().get("com.google.android.gms.ads.MobileAds")).getInitializationState().ordinal();
 
-                if (statusGADMobileAds == 0) {
-                    aIsInitialized = false;
-                }
-                else if (statusGADMobileAds == 1){
-                    aIsInitialized = true;
-                }
+                    if (statusGADMobileAds == 0) {
+                        aIsInitialized = false;
+                    }
+                    else if (statusGADMobileAds == 1){
+                        aIsInitialized = true;
+                    }
 
-                GodotLib.calldeferred(aInstanceId, "_on_AdMob_initialization_complete",statusGADMobileAds, "GADMobileAds");
+                    GodotLib.calldeferred(aInstanceId, "_on_AdMob_initialization_complete",statusGADMobileAds, "GADMobileAds");
+                }
             }); //initializes the admob
         }
     }
