@@ -647,7 +647,7 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
 
                     aRewardedInterstitialAd.show(aActivity, rewardItem -> {
                         // Handle the reward.
-                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_user_earned_rewarded", rewardItem.getType(), new Object[]{rewardItem.getAmount()});
+                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_user_earned_rewarded", new Object[]{rewardItem.getType(), rewardItem.getAmount()});
                     });
                 }
             }
