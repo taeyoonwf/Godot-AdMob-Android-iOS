@@ -601,13 +601,13 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         // Handle the error.
                         aRewardedInterstitialAd = null;
-                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_failed_to_load", loadAdError.getCode());
+                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_failed_to_load", new Object[]{loadAdError.getCode()});
                     }
 
                     @Override
                     public void onAdLoaded(@NonNull RewardedInterstitialAd rewardedInterstitialAd) {
                         aRewardedInterstitialAd = rewardedInterstitialAd;
-                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_loaded");
+                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_loaded", new Object[]{});
                         aIsRewardedInterstitialLoaded = true;
                     }
                 });
@@ -625,14 +625,14 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                         @Override
                         public void onAdShowedFullScreenContent() {
                             // Called when ad is shown.
-                            GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_opened");
+                            GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_opened", new Object[]{});
                         }
 
                         @Override
                         public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                             // Called when ad fails to show.
                             aRewardedInterstitialAd = null;
-                            GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_failed_to_show", adError.getCode());
+                            GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_failed_to_show", new Object[]{adError.getCode()});
                             aIsRewardedInterstitialLoaded = false;
                         }
 
@@ -640,14 +640,14 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                         public void onAdDismissedFullScreenContent() {
                             // Called when ad is dismissed.
                             aRewardedInterstitialAd = null;
-                            GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_closed");
+                            GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_interstitial_ad_closed", new Object[]{});
                             aIsRewardedInterstitialLoaded = false;
                         }
                     });
 
                     aRewardedInterstitialAd.show(aActivity, rewardItem -> {
                         // Handle the reward.
-                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_user_earned_rewarded", rewardItem.getType(), rewardItem.getAmount());
+                        GodotLib.calldeferred(aInstanceId, "_on_AdMob_user_earned_rewarded", rewardItem.getType(), new Object[]{rewardItem.getAmount()});
                     });
                 }
             }
