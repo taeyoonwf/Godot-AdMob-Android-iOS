@@ -139,7 +139,7 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
     }
 
 
-    public void initialize(boolean pIsForChildDirectedTreatment, String pMaxAdContentRating, boolean pIsReal, boolean pIsTestEuropeUserConsent) {
+    public void initialize(boolean pIsForChildDirectedTreatment, String pMaxAdContentRating, boolean pIsReal, boolean pIsTestEuropeUserConsent, int pInstanceId) {
         if (!aIsInitialized){
             aInstanceId = pInstanceId;
             aIsForChildDirectedTreatment = pIsForChildDirectedTreatment;
