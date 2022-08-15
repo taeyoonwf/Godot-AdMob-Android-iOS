@@ -283,7 +283,9 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
     }
 
     //BANNER only one is allowed, please do not try to place more than one, as your ads on the app may have the chance to be banned!
-    public void load_banner(final String pAdUnitId, final int pPosition, final String pSize, final boolean pShowInstantly, final boolean pRespectSafeArea) {
+    public void load_banner(final String pAdUnitId, final int pPosition, final String pSize) {
+        final boolean pShowInstantly = false;
+        final boolean pRespectSafeArea = true;
         aActivity.runOnUiThread(() -> {
             if (aIsInitialized) {
                 if (aAdView != null) destroy_banner();
