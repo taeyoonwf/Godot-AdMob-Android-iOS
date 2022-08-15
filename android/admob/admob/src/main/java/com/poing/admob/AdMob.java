@@ -51,6 +51,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
+import android.util.Log;
+
 public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
 
     private boolean aIsInitialized = false;
@@ -562,29 +564,39 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                         @Override
                         public void onAdShowedFullScreenContent() {
                             // Called when ad is shown.
-
+			Log.d("admob_rewarded", "onAdShowedFullScreenContent here0");
                             GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_ad_opened", new Object[]{});
+			Log.d("admob_rewarded", "onAdShowedFullScreenContent here1");
                         }
 
                         @Override
                         public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                             // Called when ad fails to show.
+			Log.d("admob_rewarded", "onAdFailedToShowFullScreenContent here0");
                             aRewardedAd = null;
+			Log.d("admob_rewarded", "onAdFailedToShowFullScreenContent here1");
                             GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_ad_failed_to_show", new Object[]{adError.getCode()});
+			Log.d("admob_rewarded", "onAdFailedToShowFullScreenContent here2");
                         }
 
                         @Override
                         public void onAdDismissedFullScreenContent() {
                             // Called when ad is dismissed.
+			Log.d("admob_rewarded", "onAdDismissedFullScreenContent here0");
                             aRewardedAd = null;
+			Log.d("admob_rewarded", "onAdDismissedFullScreenContent here1");
                             GodotLib.calldeferred(aInstanceId, "_on_AdMob_rewarded_ad_closed", new Object[]{});
+			Log.d("admob_rewarded", "onAdDismissedFullScreenContent here2");
                             aIsRewardedLoaded = false;
+			Log.d("admob_rewarded", "onAdDismissedFullScreenContent here3");
                         }
                     });
 
                     aRewardedAd.show(aActivity, rewardItem -> {
                         // Handle the reward.
+			Log.d("admob_rewarded", "show here0");
                         GodotLib.calldeferred(aInstanceId, "_on_AdMob_user_earned_rewarded", new Object[]{rewardItem.getType(), rewardItem.getAmount()});
+			Log.d("admob_rewarded", "show here1");
                     });
                 }
             }
