@@ -72,6 +72,7 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
 
     private AdView aAdView; //view of banner
     private AdSize aAdSize; //adSize of banner
+    private float aSafeAreaHeight;
     private InterstitialAd aInterstitialAd;
     private RewardedAd aRewardedAd;
     private RewardedInterstitialAd aRewardedInterstitialAd;
@@ -97,6 +98,7 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                 "show_rewarded_interstitial",
                 "request_user_consent",
                 "reset_consent_state",
+                "get_safe_area_height",
                 "get_banner_width",
                 "get_banner_height",
                 "get_banner_width_in_pixels",
@@ -322,6 +324,7 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                         // Code to be executed when an ad finishes loading.
                         GodotLib.calldeferred(aInstanceId, "_on_AdMob_banner_loaded", new Object[]{});
 
+                        aAdSize = aAdView.getAdSize();
                         if (pShowInstantly){
                             show_banner();
                         }
@@ -369,13 +372,17 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                 if (pPosition == 0)//BOTTOM
                 {
                     aGodotLayoutParams.gravity = Gravity.BOTTOM;
-                    if (pRespectSafeArea)
+                    if (pRespectSafeArea) {
                         aAdView.setY(-getSafeArea().bottom); //Need to validate if this value will be positive or negative
+                        aSafeAreaHeight = -getSafeArea().bottom;
+                    }
                 } else if (pPosition == 1)//TOP
                 {
                     aGodotLayoutParams.gravity = Gravity.TOP;
-                    if (pRespectSafeArea)
+                    if (pRespectSafeArea) {
                         aAdView.setY(getSafeArea().top);
+                        aSafeAreaHeight = getSafeArea().top;
+                    }
                 }
                 aGodotLayout.addView(aAdView, aGodotLayoutParams);
 
@@ -437,6 +444,13 @@ public class AdMob extends org.godotengine.godot.plugin.GodotPlugin {
                 }
             }
         });
+    }
+
+    public float get_safe_area_height() {
+        if (aIsInitialized && aAdSize != null) {
+            return aSafeAreaHeight;
+        }
+        return 0;
     }
 
     public int get_banner_width() {

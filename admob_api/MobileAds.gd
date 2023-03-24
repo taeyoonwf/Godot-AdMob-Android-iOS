@@ -89,6 +89,18 @@ func show_rewarded():
 	if _admob_singleton and is_initialized:
 		_admob_singleton.show_rewarded()
 
+func get_safe_area_height():
+	if _admob_singleton and is_initialized:
+		return _admob_singleton.get_safe_area_height()
+
+func get_banner_width_in_pixels():
+	if _admob_singleton and is_initialized:
+		return _admob_singleton.get_banner_width_in_pixels()
+
+func get_banner_height_in_pixels():
+	if _admob_singleton and is_initialized:
+		return _admob_singleton.get_banner_height_in_pixels()
+
 func _on_get_tree_resized():
 	if _admob_singleton and is_initialized:
 		unit_ids.unified_native.scale = {
